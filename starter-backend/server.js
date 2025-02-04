@@ -16,6 +16,9 @@ app.use(cors());
 // use a database to store the images.
 const images = [];
 
+// routes 
+const authRoutes = require('./routes/authRoutes')
+
 // test endpoint
 app.get('/message/hello', (req, res) => {
     res.send(
@@ -24,6 +27,8 @@ app.get('/message/hello', (req, res) => {
         see for yourself!`
     )
 })
+
+app.use('/auth', authRoutes);
 
 app.post('/image/upload', (req, res) => {
     console.log(req.body);
