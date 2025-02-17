@@ -2,6 +2,7 @@
 const { createUserWithEmailAndPassword } = require("firebase/auth")
 const { auth } = require("../config/firebase.js")
 
+
 // createUserWithEmailAndPassword(auth, email, password)
 //   .then((userCredential) => {
 //     // Signed up 

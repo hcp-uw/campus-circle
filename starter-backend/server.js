@@ -49,5 +49,5 @@ const PORT = 3001;
 
 // start your server
 app.listen(PORT, () => {
-    console.log(`Server running on port test ${PORT}`);
+    console.log(`Server running on port test http://localhost:${PORT}`);
 });
