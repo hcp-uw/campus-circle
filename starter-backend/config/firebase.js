@@ -1,9 +1,18 @@
-const admin = require('firebase-admin/app');
-const serviceAccount = require('')
-require('dotenv').config();
+const { initializeApp } = require("firebase/app")
+const { getFirestore } = require("firebase/firestore")
+const { getAuth } = require("firebase/auth")
+const dotenv = require("dotenv")
 
-admin.initializeApp({
-    credential: admin.credential.cert(process.env.FIREBASEAUTH)
-});
+dotenv.config(); // loads environment files
 
-module.exports = admin;
+const app = initializeApp(config);
+
+const auth = getAuth(app)
+
+const database = getFirestore(app)
+
+module.exports =  { auth, database }
+
+
+
+

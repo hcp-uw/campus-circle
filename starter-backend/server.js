@@ -1,6 +1,6 @@
 const express = require("express")
 const cors = require("cors")
-const { unknownEndpoint } = require('./middleware');
+const { unknownEndpoint } = require('./middleware/middleware');
 
 // create your express application
 const app = express();
