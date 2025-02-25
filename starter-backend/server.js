@@ -28,6 +28,7 @@ app.get('/message/hello', (req, res) => {
     )
 })
 
+
 app.use('/auth', authRoutes);
 
 app.post('/image/upload', (req, res) => {
