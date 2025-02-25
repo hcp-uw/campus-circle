@@ -28,4 +28,6 @@ const signup = async function (req, res) {
 
 }
 
-  module.exports = { signup };
+// add login function here
+
+module.exports = { signup }; // make sure to include export login function
