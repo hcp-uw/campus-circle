@@ -4,7 +4,7 @@ const { auth, database } = require("../config/firebase.js")
 
 const signup = async function (req, res) {
     try {
-        const { email, firstName, lastName, username, password} = req.body
+        const { name, email, password} = req.body
     
         const userCredentials = await auth.createUser({
             email,
@@ -12,12 +12,11 @@ const signup = async function (req, res) {
         })
 
         await database.collection("users").doc(userCredentials.uid).set({
+            name: name,
             email: email, 
-            firstName: firstName,
-            lastName: lastName,
-            username: username
+            password: password
         })
-        
+
     } catch (error) {
         const errorCode = error.code;
         const errorMessage = error.message;
