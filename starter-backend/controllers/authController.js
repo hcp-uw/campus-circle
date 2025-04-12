@@ -1,8 +1,7 @@
 // handles user signup with authentication
-const { auth, database } = require("../config/firebase.js") 
 
-
-const signup = async function (req, res) {
+import { auth, database } from "../config/firebase.js";
+export const signup = async (req, res) => {
     try {
         const { name, email, password} = req.body
     
@@ -16,17 +15,23 @@ const signup = async function (req, res) {
             email: email, 
             password: password
         })
+        res.send({messages: "User successfully created!"})
+    } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error(errorCode, errorMessage)
+        res.status(500).send({error: errorMessage})
+    }
+
+}
+
+export const login = async (req, res) => {
+    try {
 
     } catch (error) {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode)
-        console.log(errorMessage)
+        console.error(errorCode, errorMessage);
+        res.status(500).send({ error: errorMessage });
     }
-
-
 }
-
-// add login function here
-
-module.exports = { signup }; // make sure to include export login function

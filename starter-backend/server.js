@@ -1,6 +1,9 @@
-const express = require("express")
-const cors = require("cors")
-const { unknownEndpoint } = require('./middleware/middleware');
+import express from "express";
+import cors from "cors";
+import { unknownEndpoint } from "./middleware/middleware.js"
+
+// routes
+import authRoutes from './routes/authRoutes.js';
 
 // create your express application
 const app = express();
@@ -15,9 +18,6 @@ app.use(cors());
 // will be lost when the server is restarted. In a real application, you would
 // use a database to store the images.
 const images = [];
-
-// routes 
-const authRoutes = require('./routes/authRoutes')
 
 // test endpoint
 app.get('/message/hello', (req, res) => {

@@ -1,6 +1,7 @@
 {
   "name": "starter-backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "A simple Express.js backend",
   "main": "server.js",
   "scripts": {
