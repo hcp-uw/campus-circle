@@ -15,7 +15,7 @@ export const signup = async (req, res) => {
       createdAt: new Date(),
     });
 
-    res.send({message: "User signed up and added to Firestore!"});
+    res.status(200).send({message: "User signed up and added to Firestore!"});
   } catch (error) {
     console.error("Signup failed:", error.message);
     res.status(500).send({error: error.message})
@@ -34,7 +34,7 @@ export const login = async (req, res) => {
             return res.status(404).send({ error: "User not found in Firestore" });
         }
 
-        res.send({ message: "User logged in successfully!", user: { uid: user.uid, email: user.email } });
+        res.status(200).send({ message: "User logged in successfully!", user: { uid: user.uid, email: user.email } });
         
 
     } catch (error) {
