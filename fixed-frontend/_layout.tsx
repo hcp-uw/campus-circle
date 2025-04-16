@@ -1,51 +1,79 @@
-import { Stack, useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationIndependentTree } from "@react-navigation/native";
+import { Slot } from "expo-router";
+import HomeScreen from "@/app/index";
+import ProfileScreen from "@/app/profile";
+import EventsScreen from "@/app/events";
+import { AuthProvider, useAuth } from "@/context/AuthContext";
+import { useEffect } from "react";
+import { useRouter } from "expo-router";
+import { Ionicons } from '@expo/vector-icons';
+
+const Tab = createBottomTabNavigator();
 
 export default function RootLayout() {
+  return (
+    <AuthProvider>
+      <AuthGate />
+    </AuthProvider>
+  );
+}
+
+function AuthGate() {
+  const { isAuthenticated } = useAuth();
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const [isReady, setIsReady] = useState(false); // ✅ Prevents navigation errors
 
   useEffect(() => {
-    // Simulate checking authentication status
-    setTimeout(() => {
-      setIsAuthenticated(false); // Set to false since auth isn't connected
-      setIsReady(true); // ✅ Only redirect once the layout is ready
-    }, 1000);
-  }, []);
-
-  useEffect(() => {
-    if (isReady && isAuthenticated === false) {
-      router.replace('/(auth)/login'); // Navigate to login page if not authenticated
-    } else if (isReady && isAuthenticated === true) {
-      router.replace('./(tabs)/index'); // Redirect to home after successful login/signup
+    if (!isAuthenticated) {
+      router.replace("/(auth)/login");
     }
-  }, [isReady, isAuthenticated]);
-
-  // Show a loading screen while checking authentication
-  if (!isReady) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color="blue" />
-      </View>
-    );
-  }
+  }, [isAuthenticated]);
 
   return (
-    <Stack>
+    <NavigationIndependentTree>
       {isAuthenticated ? (
-        <>
-          {/* Redirect to home after authentication */}
-          <Stack.Screen name="(tabs)/index" options={{ headerShown: false }} />
-        </>
+        <Tab.Navigator
+        screenOptions={{
+          tabBarActiveTintColor: '#601EF9',  // Active tab color
+          tabBarInactiveTintColor: 'gray',   // Inactive tab color
+        }}
+      >
+        {/* Home Tab */}
+        <Tab.Screen 
+          name="Explore" 
+          component={HomeScreen} 
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="home" color={color} size={size} />
+            ),
+          }}
+        />
+  
+        {/* Profile Tab */}
+        <Tab.Screen 
+          name="Profile" 
+          component={ProfileScreen} 
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="person" color={color} size={size} />
+            ),
+          }}
+        />
+  
+        {/* Events Tab */}
+        <Tab.Screen 
+          name="Events" 
+          component={EventsScreen} 
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="calendar" color={color} size={size} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
       ) : (
-        <>
-          {/* Authentication Screens */}
-          <Stack.Screen name="(auth)/login" options={{ headerShown: false }} />
-          <Stack.Screen name="(auth)/signup" options={{ headerShown: false }} />
-        </>
+        <Slot />
       )}
-    </Stack>
+    </NavigationIndependentTree>
   );
 }
