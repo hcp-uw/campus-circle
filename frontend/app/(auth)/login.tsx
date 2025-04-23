@@ -6,6 +6,7 @@ import axios from 'axios';
 
 
 export default function LoginScreen() {
+  const { login } = useAuth();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +18,8 @@ export default function LoginScreen() {
         password
       });
       if (response.status === 200) {
-        router.replace("/home");
+        login();
+        router.replace("/");
       }
     } catch (error) {
       console.error('Sign-up failed:', error);
