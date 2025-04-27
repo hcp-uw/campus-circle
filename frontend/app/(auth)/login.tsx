@@ -2,6 +2,8 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity } from "react-nativ
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "expo-router";
 import { useState } from "react";
+import axios from 'axios';
+
 
 export default function LoginScreen() {
   const { login } = useAuth();
@@ -9,10 +11,19 @@ export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    if (email && password) {
-      login();
-      router.replace("/home");
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://localhost:3001/auth/login', {
+        email,
+        password
+      });
+      if (response.status === 200) {
+        login();
+        router.replace("/");
+      }
+    } catch (error) {
+      console.error('Sign-up failed:', error);
+      alert('Error: Something went wrong. Please try again.');
     }
   };
 

@@ -4,6 +4,7 @@ import { unknownEndpoint } from "./middleware/middleware.js"
 
 // routes
 import authRoutes from './routes/authRoutes.js';
+import profileRoutes from './routes/profileRoutes.js';
 
 // create your express application
 const app = express();
@@ -30,6 +31,7 @@ app.get('/message/hello', (req, res) => {
 
 
 app.use('/auth', authRoutes);
+app.use('', profileRoutes)
 
 app.post('/image/upload', (req, res) => {
     console.log(req.body);

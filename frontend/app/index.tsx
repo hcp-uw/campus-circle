@@ -19,7 +19,7 @@ export default function ExploreScreen() {
           <Image source={{ uri: 'https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png' }} style={styles.profileImage} />
 
           {/* Floating Add Friend Button */}
-          <TouchableOpacity style={styles.addButton} onPress={() => Alert.alert("You have added " + username)}>
+          <TouchableOpacity style={styles.addButton} onPress={() => alert("You have added " + username)}>
             <Feather name="user-plus" size={24} color="white" style={styles.addIcon}/>
           </TouchableOpacity>
 
