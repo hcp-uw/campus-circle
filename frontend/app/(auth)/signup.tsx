@@ -1,7 +1,10 @@
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { useState } from "react";
+<<<<<<< HEAD
+=======
 import axios from 'axios';
+>>>>>>> frontend3
 
 export default function SignupScreen() {
   const router = useRouter();
@@ -9,6 +12,11 @@ export default function SignupScreen() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState('');
 
+<<<<<<< HEAD
+  const handleSignup = () => {
+    if (email && password) {
+      router.replace("/(auth)/login");
+=======
   const handleSignup = async () => {
     try {
       const response = await axios.post('http://localhost:3001/auth/signup', {
@@ -22,6 +30,7 @@ export default function SignupScreen() {
     } catch (error) {
       console.error('Sign-up failed:', error);
       alert('Error: Something went wrong. Please try again.');
+>>>>>>> frontend3
     }
   };
 
